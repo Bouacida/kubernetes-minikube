@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myservicev2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myservicev2
+  template:
+    metadata:
+      labels:
+        app: myservicev2
+    spec:
+      containers:
+      - name: myservicev2
+        image: chahrazedbouacida/myservice:2
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myservicev2
+spec:
+  selector:
+    app: myservicev2
+  ports:
+  - port: 80
+    targetPort: 8080
